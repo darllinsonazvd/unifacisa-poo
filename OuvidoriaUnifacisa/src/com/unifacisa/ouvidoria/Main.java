@@ -1,6 +1,7 @@
 package com.unifacisa.ouvidoria;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 import com.unifacisa.ouvidoria.domains.Claims;
 import com.unifacisa.ouvidoria.domains.Compliments;
@@ -19,7 +20,13 @@ public class Main {
 		Compliments compliments = new Compliments();
 		Ideas ideas = new Ideas();
 		
-		String[] options = { "Listar feedbacks", "Adicionar feedback", "Remover feedback", "Editar feedback", "Sair\n" };
+		String[] options = {
+			"Listar feedbacks",
+			"Adicionar feedback",
+			"Remover feedback",
+			"Editar feedback",
+			"Sair\n"
+		};
 		List<String> optionsList = Arrays.asList(options);
 		
 		String[] categories = { "Reclamacao", "Elogio", "Ideia" };
@@ -32,7 +39,7 @@ public class Main {
 		System.out.print("\nDigite seu nome: ");
 		String name = validator.readString();
 		formatter.header("Bem-vindo " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
-
+		
 		while (running) {
 			formatter.line(100);
 			formatter.menu("Selecione uma opcao:", optionsList);
@@ -54,14 +61,17 @@ public class Main {
 				if (optionToAdd == 1) {
 					System.out.println("\nDigite sua reclamacao:");
 					String claim = validator.readString();
+					
 					claims.addClaim(claim);
 				} else if (optionToAdd == 2) {
 					System.out.println("\nDigite seu elogio:");
 					String compliment = validator.readString();
+					
 					compliments.addCompliment(compliment);
 				} else if (optionToAdd == 3) {
 					System.out.println("\nDigite sua ideia:");
 					String idea = validator.readString();
+					
 					ideas.addIdea(idea);
 				} else {
 					System.out.println("\nOpcao invalida!\n");
