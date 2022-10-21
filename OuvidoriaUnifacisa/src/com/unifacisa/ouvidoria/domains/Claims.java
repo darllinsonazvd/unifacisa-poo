@@ -6,7 +6,7 @@ import com.unifacisa.ouvidoria.utils.Formatter;
 import com.unifacisa.ouvidoria.utils.Validator;
 
 public class Claims {
-	
+
 	Formatter formatter = new Formatter();
 	Validator validator = new Validator();
 
@@ -18,7 +18,7 @@ public class Claims {
 
 	public void getClaims() {
 		formatter.header("Reclamacoes", 100);
-		
+
 		if (this.claims.size() == 0) {
 			System.out.println("\nNao ha reclamacoes!");
 		} else {
@@ -29,32 +29,28 @@ public class Claims {
 	}
 
 	public void addClaim(String claim) {
-		if (claim == "") {
-			System.out.println("Nao foi possivel adicionar a reclamacao!");
-		} else {
-			this.claims.add(claim);
-			System.out.println("\nReclamacao adicionada com sucesso!");
-		}
+		this.claims.add(claim);
+		formatter.successEmitter("Reclamacao adicionada com sucesso!");
 	}
 
 	public void deleteClaim(int id) {
 		if (id == 0 || id > this.claims.size()) {
-			System.out.println("\nReclamacao nao encontrada!\n");
+			formatter.errorEmitter("Reclamacao nao encontrada!");
 		} else {
 			this.claims.remove(id - 1);
-			System.out.println("\nReclamacao removida com sucesso!");
+			formatter.successEmitter("Reclamacao removida com sucesso!");
 		}
 	}
 
 	public void setClaim(int id) {
 		if (id == 0 || id > claims.size()) {
-			System.out.println("\nReclamacao nao encontrada!\n");
+			formatter.errorEmitter("Reclamacao nao encontrada!");
 		} else {
 			System.out.println("\nDigite sua nova reclamacao:");
 			String newClaim = validator.readString();
 
 			claims.set(id - 1, newClaim);
-			System.out.println("\nReclamacao editada com sucesso!");
+			formatter.successEmitter("Reclamacao editada com sucesso!");
 		}
 	}
 }

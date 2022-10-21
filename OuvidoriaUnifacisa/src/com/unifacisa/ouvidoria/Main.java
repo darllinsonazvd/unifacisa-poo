@@ -3,9 +3,9 @@ package com.unifacisa.ouvidoria;
 import java.util.Arrays;
 import java.util.List;
 
+import com.unifacisa.ouvidoria.gateway.Feedback;
 import com.unifacisa.ouvidoria.utils.Formatter;
 import com.unifacisa.ouvidoria.utils.Validator;
-import com.unifacisa.ouvidoria.gateway.Feedback;
 
 public class Main {
 

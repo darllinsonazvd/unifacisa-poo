@@ -6,7 +6,7 @@ import com.unifacisa.ouvidoria.utils.Formatter;
 import com.unifacisa.ouvidoria.utils.Validator;
 
 public class Compliments {
-	
+
 	Formatter formatter = new Formatter();
 	Validator validator = new Validator();
 
@@ -18,7 +18,7 @@ public class Compliments {
 
 	public void getCompliments() {
 		formatter.header("Elogios", 100);
-		
+
 		if (this.compliments.size() == 0) {
 			System.out.println("\nNao ha elogios!");
 		} else {
@@ -29,32 +29,28 @@ public class Compliments {
 	}
 
 	public void addCompliment(String compliment) {
-		if (compliment == "") {
-			System.out.println("Nao foi possivel adicionar a reclamacao!");
-		} else {
-			this.compliments.add(compliment);
-			System.out.println("\nElogio adicionado com sucesso!");
-		}
+		this.compliments.add(compliment);
+		formatter.successEmitter("Elogio adicionado com sucesso!");
 	}
 
 	public void deleteCompliment(int id) {
 		if (id == 0 || id > this.compliments.size()) {
-			System.out.println("\nElogio nao encontrado!");
+			formatter.errorEmitter("Elogio nao encontrado!");
 		} else {
 			this.compliments.remove(id - 1);
-			System.out.println("\nElogio removido com sucesso!");
+			formatter.successEmitter("Elogio removido com sucesso!");
 		}
 	}
 
 	public void setCompliment(int id) {
 		if (id == 0 || id > compliments.size()) {
-			System.out.println("\nElogio nao encontrado!\n");
+			formatter.errorEmitter("Elogio nao encontrado!");
 		} else {
 			System.out.println("\nDigite seu novo elogio:");
 			String newCompliment = validator.readString();
 
 			compliments.set(id - 1, newCompliment);
-			System.out.println("\nElogio editado com sucesso!");
+			formatter.successEmitter("Elogio editado com sucesso!");
 		}
 	}
 }
