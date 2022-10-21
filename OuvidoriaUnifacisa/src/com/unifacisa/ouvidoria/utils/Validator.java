@@ -3,6 +3,8 @@ package com.unifacisa.ouvidoria.utils;
 import java.util.*;
 
 public class Validator {
+	String separator = System.lineSeparator();
+	
 	Scanner textInput = new Scanner(System.in);
 	Scanner numberInput = new Scanner(System.in);
 
@@ -10,15 +12,17 @@ public class Validator {
 	}
 
 	public int readInt() {
-		String number = numberInput.nextLine();
-
-		if (!number.matches("[0-9]+")) {
-			System.out.println("\nErro: Insira um numero inteiro!\n");
-		} else {
-			int validNumber = Integer.parseInt(number);
-			return validNumber;
+		while (true) {
+			String number = numberInput.nextLine();
+			
+			if (number.matches("[0-9]+")) {
+				int validNumber = Integer.parseInt(number);
+				return validNumber;
+			} else {
+				System.out.println(separator + "Erro: Insira um numero inteiro!" + separator);
+			}
 		}
-		return 0;
+
 	}
 
 	public String readString() {
@@ -26,7 +30,7 @@ public class Validator {
 			String text = textInput.nextLine();
 
 			if (text == "") {
-				System.out.println("\nErro: Texto vazio, digite algo!\n");
+				System.out.println(separator + "Erro: Texto vazio, digite algo!" + separator);
 			} else {
 				return text;
 			}

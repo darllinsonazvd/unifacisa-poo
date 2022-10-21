@@ -3,22 +3,22 @@ package com.unifacisa.ouvidoria;
 import java.util.Arrays;
 import java.util.List;
 
-import com.unifacisa.ouvidoria.domains.Claims;
-import com.unifacisa.ouvidoria.domains.Compliments;
-import com.unifacisa.ouvidoria.domains.Ideas;
 import com.unifacisa.ouvidoria.utils.Formatter;
 import com.unifacisa.ouvidoria.utils.Validator;
+import com.unifacisa.ouvidoria.gateway.Feedback;
 
 public class Main {
 
 	public static void main(String[] args) {
 
+		String name = "";
+		String type = "";
+		String feedback = "";
+		
 		Formatter formatter = new Formatter();
 		Validator validator = new Validator();
-
-		Claims claims = new Claims();
-		Compliments compliments = new Compliments();
-		Ideas ideas = new Ideas();
+		
+		Feedback fb = new Feedback(name, type, feedback);
 		
 		String[] options = {
 			"Listar feedbacks",
@@ -37,7 +37,7 @@ public class Main {
 		formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);
 		
 		System.out.print("\nDigite seu nome: ");
-		String name = validator.readString();
+		name = validator.readString();
 		formatter.header("Bem-vindo " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
 		
 		while (running) {
@@ -49,9 +49,8 @@ public class Main {
 			int option = validator.readInt();
 
 			if (option == 1) {
-				claims.getClaims();
-				compliments.getCompliments();
-				ideas.getIdeas();
+				fb.setType("All");
+				fb.getFeedbacks();
 			} else if (option == 2) {
 				formatter.menu("Categorias:", categoriesList);
 
@@ -60,19 +59,25 @@ public class Main {
 
 				if (optionToAdd == 1) {
 					System.out.println("\nDigite sua reclamacao:");
-					String claim = validator.readString();
+					feedback = validator.readString();
 					
-					claims.addClaim(claim);
+					fb.setType("Reclamacao");
+					fb.setFeedback(feedback);
+					fb.sendFeedback();
 				} else if (optionToAdd == 2) {
 					System.out.println("\nDigite seu elogio:");
-					String compliment = validator.readString();
+					feedback = validator.readString();
 					
-					compliments.addCompliment(compliment);
+					fb.setType("Elogio");
+					fb.setFeedback(feedback);
+					fb.sendFeedback();
 				} else if (optionToAdd == 3) {
 					System.out.println("\nDigite sua ideia:");
-					String idea = validator.readString();
+					feedback = validator.readString();
 					
-					ideas.addIdea(idea);
+					fb.setType("Ideia");
+					fb.setFeedback(feedback);
+					fb.sendFeedback();
 				} else {
 					System.out.println("\nOpcao invalida!\n");
 				}
@@ -84,28 +89,31 @@ public class Main {
 
 				if (optionToRemove == 1) {
 					System.out.println("\nQual reclamacao deseja remover?\n");
-					claims.getClaims();
+					fb.setType("Reclamacao");
+					fb.getFeedbacks();
 
 					System.out.print("\nNumero da reclamacao: ");
 					int claimId = validator.readInt();
 
-					claims.deleteClaim(claimId);
+					fb.deleteFeedback(claimId);
 				} else if (optionToRemove == 2) {
 					System.out.println("\nQual elogio deseja remover?\n");
-					compliments.getCompliments();
+					fb.setType("Elogio");
+					fb.getFeedbacks();
 
 					System.out.print("\nNumero do elogio: ");
 					int complimentId = validator.readInt();
 
-					compliments.deleteCompliment(complimentId);
+					fb.deleteFeedback(complimentId);
 				} else if (optionToRemove == 3) {
 					System.out.println("\nQual ideia deseja remover?\n");
-					ideas.getIdeas();
+					fb.setType("Ideia");
+					fb.getFeedbacks();
 
 					System.out.print("\nNumero da ideia: ");
 					int ideaId = validator.readInt();
 
-					ideas.deleteIdea(ideaId);
+					fb.deleteFeedback(ideaId);
 				} else {
 					System.out.println("\nOpcao invalida!\n");
 				}
@@ -117,28 +125,31 @@ public class Main {
 
 				if (optionToEdit == 1) {
 					System.out.println("\nQual reclamacao deseja editar?\n");
-					claims.getClaims();
+					fb.setType("Reclamacao");
+					fb.getFeedbacks();
 
 					System.out.print("\nNumero da reclamacao: ");
 					int claimId = validator.readInt();
 
-					claims.setClaim(claimId);
+					fb.editFeedback(claimId);
 				} else if (optionToEdit == 2) {
 					System.out.println("\nQual elogio deseja editar?\n");
-					compliments.getCompliments();
+					fb.setType("Elogio");
+					fb.getFeedbacks();
 
 					System.out.print("\nNumero do elogio: ");
 					int compId = validator.readInt();
 
-					compliments.setCompliment(compId);
+					fb.editFeedback(compId);
 				} else if (optionToEdit == 3) {
 					System.out.println("\nQual ideia deseja editar?\n");
-					ideas.getIdeas();
+					fb.setType("Ideia");
+					fb.getFeedbacks();
 
 					System.out.print("\nNumero da ideia: ");
 					int ideaId = validator.readInt();
 
-					ideas.setIdea(ideaId);
+					fb.editFeedback(ideaId);
 				} else {
 					System.out.println("\nOpcao invalida!\n");
 				}

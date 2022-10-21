@@ -6,6 +6,8 @@ import com.unifacisa.ouvidoria.utils.StringAlignUtils.Alignment;
 
 public class Formatter {
 	
+	String separator = System.lineSeparator();
+	
 	public Formatter() {
 	}
 
@@ -16,13 +18,13 @@ public class Formatter {
 	public void header(String text, int sizeOfLine) {
 		StringAlignUtils textCenter = new StringAlignUtils(sizeOfLine, Alignment.CENTER);
 
-		System.out.println("\n" + "-".repeat(sizeOfLine));
+		System.out.println(separator + "-".repeat(sizeOfLine));
 		System.out.print(textCenter.format(text));
-		System.out.print("-".repeat(sizeOfLine) + "\n");
+		System.out.print("-".repeat(sizeOfLine) + separator);
 	}
 
 	public void menu(String title, List<String> options) {
-		System.out.println("\n" + title + "\n");
+		System.out.println(separator + title + separator);
 		for (int i = 0; i < options.size(); i++) {
 			System.out.println(i + 1 + ") " + options.get(i));
 		}
