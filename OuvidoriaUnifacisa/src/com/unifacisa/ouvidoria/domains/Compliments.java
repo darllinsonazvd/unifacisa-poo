@@ -37,17 +37,12 @@ public class Compliments {
 				this.compliments.add(feedbackDescription);
 				this.idsOfCompliments.add(idOfFeedback);
 				
-				if (this.compliments.size() == 0) {
-					System.out.println("\nNao ha elogios!");
-				} else {
-					System.out.println(
-						count + 1 + " | " +
-						typeOfFeedback + " | " +
-						authorOfFeedback + " | " +
-						feedbackDescription
-					);
-				}
-				
+				System.out.println(
+					count + 1 + " | " +
+					typeOfFeedback + " | " +
+					authorOfFeedback + " | " +
+					feedbackDescription
+				);
 			}
 		} catch (Exception err) {
 			System.out.println("Feedback on getFeedbacks" + err.getMessage());
@@ -63,20 +58,22 @@ public class Compliments {
 		if (id == 0 || id > this.compliments.size()) {
 			formatter.errorEmitter("Elogio nao encontrado!");
 		} else {
-			this.compliments.remove(id - 1);
-			formatter.successEmitter("Elogio removido com sucesso!");
+			int selectedId = this.idsOfCompliments.get(id - 1);
+			
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			fbDAO.deleteFeedback(selectedId);
 		}
 	}
 
 	public void setCompliment(int id) {
-		if (id == 0 || id > compliments.size()) {
+		if (id == 0 || id > this.compliments.size()) {
 			formatter.errorEmitter("Elogio nao encontrado!");
 		} else {
-			System.out.println();
 			String newCompliment = validator.readString("\nDigite seu novo elogio:\n");
-
-			compliments.set(id - 1, newCompliment);
-			formatter.successEmitter("Elogio editado com sucesso!");
+			int selectedId = this.idsOfCompliments.get(id - 1);
+			
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			fbDAO.editFeedback(selectedId, newCompliment);
 		}
 	}
 }

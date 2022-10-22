@@ -1,12 +1,10 @@
 package com.unifacisa.ouvidoria.gateway;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import com.unifacisa.ouvidoria.database.FeedbackDAO;
 import com.unifacisa.ouvidoria.domains.Claims;
 import com.unifacisa.ouvidoria.domains.Compliments;
 import com.unifacisa.ouvidoria.domains.Ideas;
+
+import com.unifacisa.ouvidoria.database.FeedbackDAO;
 
 public class Feedback {
 	Claims claims = new Claims();

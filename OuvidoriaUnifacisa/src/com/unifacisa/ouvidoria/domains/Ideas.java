@@ -37,17 +37,12 @@ public class Ideas {
 				this.ideas.add(feedbackDescription);
 				this.idsOfIdeas.add(idOfFeedback);
 				
-				if (this.ideas.size() == 0) {
-					System.out.println("\nNao ha ideias!");
-				} else {
-					System.out.println(
-						count + 1 + " | " +
-						typeOfFeedback + " | " +
-						authorOfFeedback + " | " +
-						feedbackDescription
-					);
-				}
-				
+				System.out.println(
+					count + 1 + " | " +
+					typeOfFeedback + " | " +
+					authorOfFeedback + " | " +
+					feedbackDescription
+				);
 			}
 		} catch (Exception err) {
 			System.out.println("Feedback on getFeedbacks" + err.getMessage());
@@ -63,19 +58,22 @@ public class Ideas {
 		if (id == 0 || id > this.ideas.size()) {
 			formatter.errorEmitter("Ideia nao encontrada!");
 		} else {
-			this.ideas.remove(id - 1);
-			formatter.successEmitter("Ideia removida com sucesso!");
+			int selectedId = this.idsOfIdeas.get(id - 1);
+			
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			fbDAO.deleteFeedback(selectedId);
 		}
 	}
 
 	public void setIdea(int id) {
-		if (id == 0 || id > ideas.size()) {
+		if (id == 0 || id > this.ideas.size()) {
 			formatter.errorEmitter("Ideia nao encontrada!");
 		} else {
 			String newIdea = validator.readString("\nDigite sua nova ideia:\n");
-
-			ideas.set(id - 1, newIdea);
-			formatter.successEmitter("Ideia editada com sucesso!");
+			int selectedId = this.idsOfIdeas.get(id - 1);
+			
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			fbDAO.editFeedback(selectedId, newIdea);
 		}
 	}
 }

@@ -57,9 +57,9 @@ public class FeedbackDAO {
 	}
 	
 	public void addFeedback(String type, String author, String feedback) {
-		String sql = "INSERT INTO feedbacks (type, author, feedback) VALUES (?, ?, ?)";
-		
 		conn = new ConnectionDAO().connectDB();
+		
+		String sql = "INSERT INTO feedbacks (type, author, feedback) VALUES (?, ?, ?)";
 		
 		try {
 			pstm = conn.prepareStatement(sql);
@@ -69,9 +69,44 @@ public class FeedbackDAO {
 			
 			pstm.execute();
 			pstm.close();
-			formatter.successEmitter("Feedback adicionado0 com sucesso!");
+			formatter.successEmitter("Feedback adicionado com sucesso!");
 		} catch (Exception err) {
 			System.out.println("FeedbackDAO on addFeedback" + err.getMessage());
+		}
+	}
+	
+	public void deleteFeedback(int id) {
+		conn = new ConnectionDAO().connectDB();
+		
+		String sql = "DELETE FROM feedbacks WHERE id = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, id);
+			
+			pstm.execute();
+			pstm.close();
+			formatter.successEmitter("Feedback removido com sucesso!");
+		} catch (SQLException err) {
+			System.out.println("FeedbackDAO on deleteFeedback" + err.getMessage());
+		}
+	}
+	
+	public void editFeedback(int id, String newFeedback) {
+		conn = new ConnectionDAO().connectDB();
+		
+		String sql = "UPDATE feedbacks SET feedback = ? WHERE id = ?";
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, newFeedback);
+			pstm.setInt(2, id);
+			
+			pstm.execute();
+			pstm.close();
+			formatter.successEmitter("Feedback editado com sucesso!");
+		} catch (SQLException err) {
+			System.out.println("FeedbackDAO on editFeedback" + err.getMessage());
 		}
 	}
 }

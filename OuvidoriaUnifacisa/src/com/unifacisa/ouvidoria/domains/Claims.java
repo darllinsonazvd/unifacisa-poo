@@ -37,17 +37,12 @@ public class Claims {
 				this.claims.add(feedbackDescription);
 				this.idsOfClaims.add(idOfFeedback);
 				
-				if (this.claims.size() == 0) {
-					System.out.println("\nNao ha reclamacoes!");
-				} else {
-					System.out.println(
-						count + 1 + " | " +
-						typeOfFeedback + " | " +
-						authorOfFeedback + " | " +
-						feedbackDescription
-					);
-				}
-				
+				System.out.println(
+					count + 1 + " | " +
+					typeOfFeedback + " | " +
+					authorOfFeedback + " | " +
+					feedbackDescription
+				);
 			}
 		} catch (Exception err) {
 			System.out.println("Feedback on getFeedbacks" + err.getMessage());
@@ -58,19 +53,22 @@ public class Claims {
 		if (id == 0 || id > this.claims.size()) {
 			formatter.errorEmitter("Reclamacao nao encontrada!");
 		} else {
-			this.claims.remove(id - 1);
-			formatter.successEmitter("Reclamacao removida com sucesso!");
+			int selectedId = this.idsOfClaims.get(id - 1);
+			
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			fbDAO.deleteFeedback(selectedId);
 		}
 	}
 
 	public void setClaim(int id) {
-		if (id == 0 || id > claims.size()) {
+		if (id == 0 || id > this.claims.size()) {
 			formatter.errorEmitter("Reclamacao nao encontrada!");
 		} else {
 			String newClaim = validator.readString("\nDigite sua nova reclamacao:\n");
-
-			claims.set(id - 1, newClaim);
-			formatter.successEmitter("Reclamacao editada com sucesso!");
+			int selectedId = this.idsOfClaims.get(id - 1);
+			
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			fbDAO.editFeedback(selectedId, newClaim);
 		}
 	}
 }

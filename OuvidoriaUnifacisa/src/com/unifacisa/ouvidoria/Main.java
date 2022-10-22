@@ -36,8 +36,8 @@ public class Main {
 		formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);
 		
 		name = validator.readString("\nDigite seu nome: ");
-		formatter.header("Bem-vindo " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
-		fb.setAuthor(name);
+		formatter.header("Bem-vindo(a) " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
+		fb.setAuthor(name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase());
 		
 		while (running) {
 			formatter.line(100);
@@ -51,7 +51,7 @@ public class Main {
 			} else if (option == 2) {
 				formatter.menu("Categorias:", categoriesList);
 
-				int optionToAdd = validator.readInt("\nQual categoria deseja listar? (1 / 2 / 3): ");
+				int optionToAdd = validator.readInt("\nQual a categoria do feedback deseja adicionar? (1 / 2 / 3): ");
 				
 				switch (optionToAdd) {
 					case 1:
@@ -102,6 +102,7 @@ public class Main {
 
 						fb.setType("Elogio");
 						fb.deleteFeedback(complimentId);
+						break;
 					case 3:
 						System.out.println("\nQual ideia deseja remover?\n");
 						fb.getFeedbacks("Ideia");
@@ -110,6 +111,7 @@ public class Main {
 
 						fb.setType("Ideia");
 						fb.deleteFeedback(ideaId);
+						break;
 					default:
 						formatter.errorEmitter("Categoria invalida!");
 						break;
