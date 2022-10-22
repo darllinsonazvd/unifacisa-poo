@@ -1,5 +1,9 @@
 package com.unifacisa.ouvidoria.gateway;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.unifacisa.ouvidoria.database.FeedbackDAO;
 import com.unifacisa.ouvidoria.domains.Claims;
 import com.unifacisa.ouvidoria.domains.Compliments;
 import com.unifacisa.ouvidoria.domains.Ideas;
@@ -8,15 +12,21 @@ public class Feedback {
 	Claims claims = new Claims();
 	Compliments compliments = new Compliments();
 	Ideas ideas = new Ideas();
-
+	
+	int id;
 	String author;
 	String type;
 	String feedback;
 
-	public Feedback(String author, String type, String feedback) {
-		this.author = author;
-		this.type = type;
-		this.feedback = feedback;
+	public Feedback() {
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getAuthor() {
@@ -43,8 +53,8 @@ public class Feedback {
 		this.feedback = feedback;
 	}
 
-	public void getFeedbacks() {
-		switch (this.type) {
+	public void getFeedbacks(String type) {
+		switch (type) {
 			case "Reclamacao":
 				claims.getClaims();
 				break;
@@ -63,17 +73,8 @@ public class Feedback {
 	}
 
 	public void sendFeedback() {
-		switch (this.type) {
-			case "Reclamacao":
-				claims.addClaim(this.feedback);
-				break;
-			case "Elogio":
-				compliments.addCompliment(this.feedback);
-				break;
-			case "Ideia":
-				ideas.addIdea(this.feedback);
-				break;
-		}
+		FeedbackDAO fbDAO = new FeedbackDAO();
+		fbDAO.addFeedback(this.type, this.author, this.feedback);
 	}
 
 	public void deleteFeedback(int id) {

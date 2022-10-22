@@ -2,6 +2,8 @@ package com.unifacisa.ouvidoria.domains;
 
 import java.util.*;
 
+import com.unifacisa.ouvidoria.database.FeedbackDAO;
+import com.unifacisa.ouvidoria.gateway.Feedback;
 import com.unifacisa.ouvidoria.utils.Formatter;
 import com.unifacisa.ouvidoria.utils.Validator;
 
@@ -11,26 +13,45 @@ public class Claims {
 	Validator validator = new Validator();
 
 	public ArrayList<String> claims;
+	public ArrayList<Integer> idsOfClaims;
 
 	public Claims() {
-		this.claims = new ArrayList<String>();
 	}
 
 	public void getClaims() {
+		this.claims = new ArrayList<String>();
+		this.idsOfClaims = new ArrayList<Integer>();
+		
 		formatter.header("Reclamacoes", 100);
-
-		if (this.claims.size() == 0) {
-			System.out.println("\nNao ha reclamacoes!");
-		} else {
-			for (int i = 0; i < this.claims.size(); i++) {
-				System.out.println(i + 1 + " | " + this.claims.get(i));
+		
+		try {
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			ArrayList<Feedback> listOfFeedbacks = fbDAO.getFeedbacks("Reclamacao");
+			
+			for (int count = 0; count < listOfFeedbacks.size(); count++) {
+				int idOfFeedback = listOfFeedbacks.get(count).getId();
+				String typeOfFeedback = listOfFeedbacks.get(count).getType();
+				String authorOfFeedback = listOfFeedbacks.get(count).getAuthor();
+				String feedbackDescription = listOfFeedbacks.get(count).getFeedback();
+				
+				this.claims.add(feedbackDescription);
+				this.idsOfClaims.add(idOfFeedback);
+				
+				if (this.claims.size() == 0) {
+					System.out.println("\nNao ha reclamacoes!");
+				} else {
+					System.out.println(
+						count + 1 + " | " +
+						typeOfFeedback + " | " +
+						authorOfFeedback + " | " +
+						feedbackDescription
+					);
+				}
+				
 			}
+		} catch (Exception err) {
+			System.out.println("Feedback on getFeedbacks" + err.getMessage());
 		}
-	}
-
-	public void addClaim(String claim) {
-		this.claims.add(claim);
-		formatter.successEmitter("Reclamacao adicionada com sucesso!");
 	}
 
 	public void deleteClaim(int id) {

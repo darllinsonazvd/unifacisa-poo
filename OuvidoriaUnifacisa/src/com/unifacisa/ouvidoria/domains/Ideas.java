@@ -2,6 +2,8 @@ package com.unifacisa.ouvidoria.domains;
 
 import java.util.*;
 
+import com.unifacisa.ouvidoria.database.FeedbackDAO;
+import com.unifacisa.ouvidoria.gateway.Feedback;
 import com.unifacisa.ouvidoria.utils.Formatter;
 import com.unifacisa.ouvidoria.utils.Validator;
 
@@ -11,20 +13,44 @@ public class Ideas {
 	Validator validator = new Validator();
 
 	public ArrayList<String> ideas;
+	public ArrayList<Integer> idsOfIdeas;
 
 	public Ideas() {
-		this.ideas = new ArrayList<String>();
 	}
 
 	public void getIdeas() {
+		this.ideas = new ArrayList<String>();
+		this.idsOfIdeas = new ArrayList<Integer>();
+		
 		formatter.header("Ideias", 100);
 
-		if (this.ideas.size() == 0) {
-			System.out.println("\nNao ha ideias!");
-		} else {
-			for (int i = 0; i < this.ideas.size(); i++) {
-				System.out.println(i + 1 + " | " + this.ideas.get(i));
+		try {
+			FeedbackDAO fbDAO = new FeedbackDAO();
+			ArrayList<Feedback> listOfFeedbacks = fbDAO.getFeedbacks("Ideia");
+			
+			for (int count = 0; count < listOfFeedbacks.size(); count++) {
+				int idOfFeedback = listOfFeedbacks.get(count).getId();
+				String typeOfFeedback = listOfFeedbacks.get(count).getType();
+				String authorOfFeedback = listOfFeedbacks.get(count).getAuthor();
+				String feedbackDescription = listOfFeedbacks.get(count).getFeedback();
+				
+				this.ideas.add(feedbackDescription);
+				this.idsOfIdeas.add(idOfFeedback);
+				
+				if (this.ideas.size() == 0) {
+					System.out.println("\nNao ha ideias!");
+				} else {
+					System.out.println(
+						count + 1 + " | " +
+						typeOfFeedback + " | " +
+						authorOfFeedback + " | " +
+						feedbackDescription
+					);
+				}
+				
 			}
+		} catch (Exception err) {
+			System.out.println("Feedback on getFeedbacks" + err.getMessage());
 		}
 	}
 

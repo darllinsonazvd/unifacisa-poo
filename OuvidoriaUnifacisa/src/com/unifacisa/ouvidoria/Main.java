@@ -11,14 +11,13 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		String name = "";
-		String type = "";
-		String feedback = "";
+		String name;
+		String feedback;
 		
 		Formatter formatter = new Formatter();
 		Validator validator = new Validator();
 		
-		Feedback fb = new Feedback(name, type, feedback);
+		Feedback fb = new Feedback();
 		
 		String[] options = {
 			"Listar feedbacks",
@@ -38,6 +37,7 @@ public class Main {
 		
 		name = validator.readString("\nDigite seu nome: ");
 		formatter.header("Bem-vindo " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
+		fb.setAuthor(name);
 		
 		while (running) {
 			formatter.line(100);
@@ -47,8 +47,7 @@ public class Main {
 			int option = validator.readInt("\nOpcao: ");
 
 			if (option == 1) {
-				fb.setType("All");
-				fb.getFeedbacks();
+				fb.getFeedbacks("All");
 			} else if (option == 2) {
 				formatter.menu("Categorias:", categoriesList);
 
@@ -88,28 +87,28 @@ public class Main {
 				switch (optionToRemove) {
 					case 1:
 						System.out.println("\nQual reclamacao deseja remover?\n");
-						fb.setType("Reclamacao");
-						fb.getFeedbacks();
+						fb.getFeedbacks("Reclamacao");
 	
 						int claimId = validator.readInt("\nNumero da reclamacao: ");
 	
+						fb.setType("Reclamacao");
 						fb.deleteFeedback(claimId);
 						break;
 					case 2:
 						System.out.println("\nQual elogio deseja remover?\n");
-						fb.setType("Elogio");
-						fb.getFeedbacks();
+						fb.getFeedbacks("Elogio");
 
 						int complimentId = validator.readInt("\nNumero do elogio: ");
 
+						fb.setType("Elogio");
 						fb.deleteFeedback(complimentId);
 					case 3:
 						System.out.println("\nQual ideia deseja remover?\n");
-						fb.setType("Ideia");
-						fb.getFeedbacks();
+						fb.getFeedbacks("Ideia");
 
 						int ideaId = validator.readInt("\nNumero da ideia: ");
 
+						fb.setType("Ideia");
 						fb.deleteFeedback(ideaId);
 					default:
 						formatter.errorEmitter("Categoria invalida!");
@@ -123,29 +122,29 @@ public class Main {
 				switch (optionToEdit) {
 					case 1:
 						System.out.println("\nQual reclamacao deseja editar?\n");
-						fb.setType("Reclamacao");
-						fb.getFeedbacks();
+						fb.getFeedbacks("Reclamacao");
 
 						int claimId = validator.readInt("\nNumero da reclamacao: ");
 
+						fb.setType("Reclamacao");
 						fb.editFeedback(claimId);
 						break;
 					case 2:
 						System.out.println("\nQual elogio deseja editar?\n");
-						fb.setType("Elogio");
-						fb.getFeedbacks();
+						fb.getFeedbacks("Elogio");
 
 						int compId = validator.readInt("\nNumero do elogio: ");
 
+						fb.setType("Elogio");
 						fb.editFeedback(compId);
 						break;
 					case 3:
 						System.out.println("\nQual ideia deseja editar?\n");
-						fb.setType("Ideia");
-						fb.getFeedbacks();
+						fb.getFeedbacks("Ideia");
 
 						int ideaId = validator.readInt("\nNumero da ideia: ");
 
+						fb.setType("Ideia");
 						fb.editFeedback(ideaId);
 						break;
 					default:
