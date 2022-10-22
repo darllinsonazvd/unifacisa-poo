@@ -46,8 +46,8 @@ public class Compliments {
 		if (id == 0 || id > compliments.size()) {
 			formatter.errorEmitter("Elogio nao encontrado!");
 		} else {
-			System.out.println("\nDigite seu novo elogio:");
-			String newCompliment = validator.readString();
+			System.out.println();
+			String newCompliment = validator.readString("\nDigite seu novo elogio:\n");
 
 			compliments.set(id - 1, newCompliment);
 			formatter.successEmitter("Elogio editado com sucesso!");

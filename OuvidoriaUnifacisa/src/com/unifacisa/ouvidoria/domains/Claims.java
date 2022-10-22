@@ -46,8 +46,7 @@ public class Claims {
 		if (id == 0 || id > claims.size()) {
 			formatter.errorEmitter("Reclamacao nao encontrada!");
 		} else {
-			System.out.println("\nDigite sua nova reclamacao:");
-			String newClaim = validator.readString();
+			String newClaim = validator.readString("\nDigite sua nova reclamacao:\n");
 
 			claims.set(id - 1, newClaim);
 			formatter.successEmitter("Reclamacao editada com sucesso!");

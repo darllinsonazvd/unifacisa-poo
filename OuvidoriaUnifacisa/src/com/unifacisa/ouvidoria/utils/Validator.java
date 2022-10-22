@@ -13,8 +13,9 @@ public class Validator {
 	public Validator() {
 	}
 
-	public int readInt() {
+	public int readInt(String placeholder) {
 		while (true) {
+			System.out.print(placeholder);
 			String number = numberInput.nextLine();
 
 			if (number.matches("[0-9]+")) {
@@ -27,8 +28,9 @@ public class Validator {
 
 	}
 
-	public String readString() {
+	public String readString(String placeholder) {
 		while (true) {
+			System.out.print(placeholder);
 			String text = textInput.nextLine();
 
 			if (text == "") {

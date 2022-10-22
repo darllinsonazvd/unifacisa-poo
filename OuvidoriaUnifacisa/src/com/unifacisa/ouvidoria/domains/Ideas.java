@@ -46,8 +46,7 @@ public class Ideas {
 		if (id == 0 || id > ideas.size()) {
 			formatter.errorEmitter("Ideia nao encontrada!");
 		} else {
-			System.out.println("\nDigite sua nova ideia:");
-			String newIdea = validator.readString();
+			String newIdea = validator.readString("\nDigite sua nova ideia:\n");
 
 			ideas.set(id - 1, newIdea);
 			formatter.successEmitter("Ideia editada com sucesso!");

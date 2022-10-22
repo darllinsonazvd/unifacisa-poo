@@ -36,8 +36,7 @@ public class Main {
 		
 		formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);
 		
-		System.out.print("\nDigite seu nome: ");
-		name = validator.readString();
+		name = validator.readString("\nDigite seu nome: ");
 		formatter.header("Bem-vindo " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
 		
 		while (running) {
@@ -45,8 +44,7 @@ public class Main {
 			formatter.menu("Selecione uma opcao:", optionsList);
 			formatter.line(100);
 
-			System.out.print("\nOpcao: ");
-			int option = validator.readInt();
+			int option = validator.readInt("\nOpcao: ");
 
 			if (option == 1) {
 				fb.setType("All");
@@ -54,111 +52,111 @@ public class Main {
 			} else if (option == 2) {
 				formatter.menu("Categorias:", categoriesList);
 
-				System.out.print("\nQual categoria deseja listar? (1 / 2 / 3): ");
-				int optionToAdd = validator.readInt();
-
-				if (optionToAdd == 1) {
-					System.out.println("\nDigite sua reclamacao:");
-					feedback = validator.readString();
-					
-					fb.setType("Reclamacao");
-					fb.setFeedback(feedback);
-					fb.sendFeedback();
-				} else if (optionToAdd == 2) {
-					System.out.println("\nDigite seu elogio:");
-					feedback = validator.readString();
-					
-					fb.setType("Elogio");
-					fb.setFeedback(feedback);
-					fb.sendFeedback();
-				} else if (optionToAdd == 3) {
-					System.out.println("\nDigite sua ideia:");
-					feedback = validator.readString();
-					
-					fb.setType("Ideia");
-					fb.setFeedback(feedback);
-					fb.sendFeedback();
-				} else {
-					System.out.println("\nOpcao invalida!\n");
+				int optionToAdd = validator.readInt("\nQual categoria deseja listar? (1 / 2 / 3): ");
+				
+				switch (optionToAdd) {
+					case 1:
+						feedback = validator.readString("\nDigite sua reclamacao:\n");
+						
+						fb.setType("Reclamacao");
+						fb.setFeedback(feedback);
+						fb.sendFeedback();
+						break;
+					case 2:
+						feedback = validator.readString("\nDigite seu elogio:\n");
+						
+						fb.setType("Elogio");
+						fb.setFeedback(feedback);
+						fb.sendFeedback();
+						break;
+					case 3:
+						feedback = validator.readString("\nDigite sua ideia:\n");
+						
+						fb.setType("Ideia");
+						fb.setFeedback(feedback);
+						fb.sendFeedback();
+						break;
+					default:
+						formatter.errorEmitter("Categoria invalida!");
+						break;
 				}
 			} else if (option == 3) {
 				formatter.menu("Categorias:", categoriesList);
 
-				System.out.print("\nQual a categoria do feedback deseja remover? (1 / 2 / 3): ");
-				int optionToRemove = validator.readInt();
+				int optionToRemove = validator.readInt("\nQual a categoria do feedback deseja remover? (1 / 2 / 3): ");
+				
+				switch (optionToRemove) {
+					case 1:
+						System.out.println("\nQual reclamacao deseja remover?\n");
+						fb.setType("Reclamacao");
+						fb.getFeedbacks();
+	
+						int claimId = validator.readInt("\nNumero da reclamacao: ");
+	
+						fb.deleteFeedback(claimId);
+						break;
+					case 2:
+						System.out.println("\nQual elogio deseja remover?\n");
+						fb.setType("Elogio");
+						fb.getFeedbacks();
 
-				if (optionToRemove == 1) {
-					System.out.println("\nQual reclamacao deseja remover?\n");
-					fb.setType("Reclamacao");
-					fb.getFeedbacks();
+						int complimentId = validator.readInt("\nNumero do elogio: ");
 
-					System.out.print("\nNumero da reclamacao: ");
-					int claimId = validator.readInt();
+						fb.deleteFeedback(complimentId);
+					case 3:
+						System.out.println("\nQual ideia deseja remover?\n");
+						fb.setType("Ideia");
+						fb.getFeedbacks();
 
-					fb.deleteFeedback(claimId);
-				} else if (optionToRemove == 2) {
-					System.out.println("\nQual elogio deseja remover?\n");
-					fb.setType("Elogio");
-					fb.getFeedbacks();
+						int ideaId = validator.readInt("\nNumero da ideia: ");
 
-					System.out.print("\nNumero do elogio: ");
-					int complimentId = validator.readInt();
-
-					fb.deleteFeedback(complimentId);
-				} else if (optionToRemove == 3) {
-					System.out.println("\nQual ideia deseja remover?\n");
-					fb.setType("Ideia");
-					fb.getFeedbacks();
-
-					System.out.print("\nNumero da ideia: ");
-					int ideaId = validator.readInt();
-
-					fb.deleteFeedback(ideaId);
-				} else {
-					System.out.println("\nOpcao invalida!\n");
+						fb.deleteFeedback(ideaId);
+					default:
+						formatter.errorEmitter("Categoria invalida!");
+						break;
 				}
 			} else if (option == 4) {
 				formatter.menu("Categorias:", categoriesList);
 
-				System.out.print("\nQual a categoria do feedback deseja editar? (1 / 2 / 3): ");
-				int optionToEdit = validator.readInt();
+				int optionToEdit = validator.readInt("\nQual a categoria do feedback deseja editar? (1 / 2 / 3): ");
+				
+				switch (optionToEdit) {
+					case 1:
+						System.out.println("\nQual reclamacao deseja editar?\n");
+						fb.setType("Reclamacao");
+						fb.getFeedbacks();
 
-				if (optionToEdit == 1) {
-					System.out.println("\nQual reclamacao deseja editar?\n");
-					fb.setType("Reclamacao");
-					fb.getFeedbacks();
+						int claimId = validator.readInt("\nNumero da reclamacao: ");
 
-					System.out.print("\nNumero da reclamacao: ");
-					int claimId = validator.readInt();
+						fb.editFeedback(claimId);
+						break;
+					case 2:
+						System.out.println("\nQual elogio deseja editar?\n");
+						fb.setType("Elogio");
+						fb.getFeedbacks();
 
-					fb.editFeedback(claimId);
-				} else if (optionToEdit == 2) {
-					System.out.println("\nQual elogio deseja editar?\n");
-					fb.setType("Elogio");
-					fb.getFeedbacks();
+						int compId = validator.readInt("\nNumero do elogio: ");
 
-					System.out.print("\nNumero do elogio: ");
-					int compId = validator.readInt();
+						fb.editFeedback(compId);
+						break;
+					case 3:
+						System.out.println("\nQual ideia deseja editar?\n");
+						fb.setType("Ideia");
+						fb.getFeedbacks();
 
-					fb.editFeedback(compId);
-				} else if (optionToEdit == 3) {
-					System.out.println("\nQual ideia deseja editar?\n");
-					fb.setType("Ideia");
-					fb.getFeedbacks();
+						int ideaId = validator.readInt("\nNumero da ideia: ");
 
-					System.out.print("\nNumero da ideia: ");
-					int ideaId = validator.readInt();
-
-					fb.editFeedback(ideaId);
-				} else {
-					System.out.println("\nOpcao invalida!\n");
+						fb.editFeedback(ideaId);
+						break;
+					default:
+						formatter.errorEmitter("Categoria invalida!");
+						break;
 				}
 			} else if (option == 5) {
 				formatter.header("Obrigado por utilizar o Sistema de Ouvidoria da Unifacisa!", 100);
-
 				running = false;
 			} else {
-				System.out.println("\nOpcao invalida!\n");
+				formatter.errorEmitter("Opcao invalida!");
 			}
 		}
 	}
