@@ -45,7 +45,7 @@ public class Ideas {
 				);
 			}
 		} catch (Exception err) {
-			System.out.println("Feedback on getFeedbacks" + err.getMessage());
+			System.out.println("Feedback on getFeedbacks: " + err.getMessage());
 		}
 	}
 

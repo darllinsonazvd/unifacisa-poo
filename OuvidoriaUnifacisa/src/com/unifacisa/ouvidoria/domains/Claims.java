@@ -45,7 +45,7 @@ public class Claims {
 				);
 			}
 		} catch (Exception err) {
-			System.out.println("Feedback on getFeedbacks" + err.getMessage());
+			System.out.println("Feedback on getFeedbacks: " + err.getMessage());
 		}
 	}
 

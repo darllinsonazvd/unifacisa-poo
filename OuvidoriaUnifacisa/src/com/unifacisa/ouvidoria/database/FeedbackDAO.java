@@ -50,7 +50,8 @@ public class FeedbackDAO {
 				listOfFeedbacks.add(fb);
 			}
 		} catch (SQLException err) {
-			System.out.println("FeedbackDAO on getFeedbacks" + err.getMessage());
+			formatter.errorEmitter("Nao foi possivel listar os feedbacks!");
+			System.out.println("FeedbackDAO on getFeedbacks: " + err.getMessage());
 		}
 		
 		return listOfFeedbacks;
@@ -71,7 +72,8 @@ public class FeedbackDAO {
 			pstm.close();
 			formatter.successEmitter("Feedback adicionado com sucesso!");
 		} catch (Exception err) {
-			System.out.println("FeedbackDAO on addFeedback" + err.getMessage());
+			formatter.errorEmitter("Nao foi possivel adicionar o feedback!");
+			System.out.println("FeedbackDAO on addFeedback: " + err.getMessage());
 		}
 	}
 	
@@ -88,7 +90,8 @@ public class FeedbackDAO {
 			pstm.close();
 			formatter.successEmitter("Feedback removido com sucesso!");
 		} catch (SQLException err) {
-			System.out.println("FeedbackDAO on deleteFeedback" + err.getMessage());
+			formatter.errorEmitter("Nao foi possivel remover o feedback!");
+			System.out.println("FeedbackDAO on deleteFeedback: " + err.getMessage());
 		}
 	}
 	
@@ -106,7 +109,8 @@ public class FeedbackDAO {
 			pstm.close();
 			formatter.successEmitter("Feedback editado com sucesso!");
 		} catch (SQLException err) {
-			System.out.println("FeedbackDAO on editFeedback" + err.getMessage());
+			formatter.errorEmitter("Nao foi possivel editar o feedback!");
+			System.out.println("FeedbackDAO on editFeedback: " + err.getMessage());
 		}
 	}
 }
