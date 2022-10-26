@@ -71,7 +71,7 @@ public class FeedbackDAO {
 			pstm.execute();
 			pstm.close();
 			formatter.successEmitter("Feedback adicionado com sucesso!");
-		} catch (Exception err) {
+		} catch (SQLException err) {
 			formatter.errorEmitter("Nao foi possivel adicionar o feedback!");
 			System.out.println("FeedbackDAO on addFeedback: " + err.getMessage());
 		}
