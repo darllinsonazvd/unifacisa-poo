@@ -19,25 +19,26 @@ public class Main {
 		
 		Feedback fb = new Feedback();
 		
-		String[] options = {
+		final String[] options = {
 			"Listar feedbacks",
 			"Adicionar feedback",
 			"Remover feedback",
 			"Editar feedback",
 			"Sair\n"
 		};
-		List<String> optionsList = Arrays.asList(options);
+		final List<String> optionsList = Arrays.asList(options);
 		
-		String[] categories = { "Reclamacao", "Elogio", "Ideia" };
-		List<String> categoriesList = Arrays.asList(categories);
+		final String[] categories = { "Reclamacao", "Elogio", "Ideia" };
+		final List<String> categoriesList = Arrays.asList(categories);
 		
 		boolean running = true;
 		
 		formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);
 		
 		name = validator.readString("\nDigite seu nome: ");
-		formatter.header("Bem-vindo(a) " + name.substring(0, 1).toUpperCase() + name.substring(1) + "!", 100);
-		fb.setAuthor(name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase());
+		String capitalizedName = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+		formatter.header("Bem-vindo(a) " + capitalizedName, 100);
+		fb.setAuthor(capitalizedName);
 		
 		while (running) {
 			formatter.line(100);
