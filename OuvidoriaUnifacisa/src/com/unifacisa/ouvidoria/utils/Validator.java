@@ -25,7 +25,6 @@ public class Validator {
 				formatter.errorEmitter("Erro: Insira um numero inteiro!");
 			}
 		}
-
 	}
 
 	public String readString(String placeholder) {
