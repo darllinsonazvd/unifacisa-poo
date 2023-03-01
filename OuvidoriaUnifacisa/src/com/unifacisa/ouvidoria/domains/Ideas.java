@@ -5,6 +5,8 @@ import java.util.*;
 import com.unifacisa.ouvidoria.database.FeedbackDAO;
 import com.unifacisa.ouvidoria.gateway.Feedback;
 import com.unifacisa.ouvidoria.utils.Formatter;
+import com.unifacisa.ouvidoria.utils.StringAlignUtils;
+import com.unifacisa.ouvidoria.utils.StringAlignUtils.Alignment;
 import com.unifacisa.ouvidoria.utils.Validator;
 
 public class Ideas {
@@ -48,6 +50,11 @@ public class Ideas {
 					authorOfFeedback + " | " +
 					feedbackDescription
 				);
+			}
+
+			if (this.ideas.isEmpty()) {
+				StringAlignUtils textCenter = new StringAlignUtils(100, Alignment.CENTER);
+				System.out.println(textCenter.format("Nao ha elogios para exibir!"));
 			}
 		} catch (Exception err) {
 			System.out.println("Feedback on getFeedbacks: " + err.getMessage());
