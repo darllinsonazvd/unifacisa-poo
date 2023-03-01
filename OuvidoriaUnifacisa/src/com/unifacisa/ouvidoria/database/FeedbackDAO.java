@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import com.unifacisa.ouvidoria.gateway.Feedback;
 import com.unifacisa.ouvidoria.utils.Formatter;
 
+/**
+ * @apiNote Classe de funcionalidades da aplicação no banco de dados
+ *
+ * @author Darllinson Azevedo
+ */
 public class FeedbackDAO {
 	Connection conn;
 	PreparedStatement pstm;
@@ -16,26 +21,26 @@ public class FeedbackDAO {
 	ArrayList<Feedback> listOfFeedbacks = new ArrayList<>();
 	
 	Formatter formatter = new Formatter();
-	
+
+	/**
+	 * @apiNote Recuperando feedbacks do banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param type Tipo do feedback
+	 * @return Lista de feedbacks
+	 */
 	public ArrayList<Feedback> getFeedbacks(String type) {
-		conn = new ConnectionDAO().connectDB();
+		conn = ConnectionDAO.connectDB();
 		
-		String sql = "";
-		switch (type) {
-			case "Reclamacao":
-				sql = "SELECT * FROM feedbacks WHERE type='Reclamacao'";
-				break;
-			case "Elogio":
-				sql = "SELECT * FROM feedbacks WHERE type='Elogio'";
-				break;
-			case "Ideia":
-				sql = "SELECT * FROM feedbacks WHERE type='Ideia'";
-				break;
-			case "All":
-				sql = "SELECT * FROM feedbacks";
-				break;
-		}
-		
+		String sql = switch (type) {
+			case "Reclamacao" -> "SELECT * FROM feedbacks WHERE type='Reclamacao'";
+			case "Elogio" -> "SELECT * FROM feedbacks WHERE type='Elogio'";
+			case "Ideia" -> "SELECT * FROM feedbacks WHERE type='Ideia'";
+			case "All" -> "SELECT * FROM feedbacks";
+			default -> "";
+		};
+
 		try {
 			pstm = conn.prepareStatement(sql);
 			rs = pstm.executeQuery();
@@ -56,9 +61,18 @@ public class FeedbackDAO {
 		
 		return listOfFeedbacks;
 	}
-	
+
+	/**
+	 * @apiNote Adicionar feedback no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param type Tipo do feedback
+	 * @param author Autor do feedback
+	 * @param feedback Descrição do feedback
+	 */
 	public void addFeedback(String type, String author, String feedback) {
-		conn = new ConnectionDAO().connectDB();
+		conn = ConnectionDAO.connectDB();
 		
 		String sql = "INSERT INTO feedbacks (type, author, feedback) VALUES (?, ?, ?)";
 		
@@ -76,9 +90,16 @@ public class FeedbackDAO {
 			System.out.println("FeedbackDAO on addFeedback: " + err.getMessage());
 		}
 	}
-	
+
+	/**
+	 * @apiNote Excluir feedback no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do feedback
+	 */
 	public void deleteFeedback(int id) {
-		conn = new ConnectionDAO().connectDB();
+		conn = ConnectionDAO.connectDB();
 		
 		String sql = "DELETE FROM feedbacks WHERE id = ?";
 		
@@ -94,9 +115,17 @@ public class FeedbackDAO {
 			System.out.println("FeedbackDAO on deleteFeedback: " + err.getMessage());
 		}
 	}
-	
+
+	/**
+	 * @apiNote Editar feedback no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do feedback
+	 * @param newFeedback Nova descrição do feedback
+	 */
 	public void editFeedback(int id, String newFeedback) {
-		conn = new ConnectionDAO().connectDB();
+		conn = ConnectionDAO.connectDB();
 		
 		String sql = "UPDATE feedbacks SET feedback = ? WHERE id = ?";
 		

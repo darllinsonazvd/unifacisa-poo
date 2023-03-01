@@ -19,17 +19,17 @@ public class Main {
 		
 		Feedback fb = new Feedback();
 		
-		final String[] options = {
+		final String[] OPTIONS = {
 			"Listar feedbacks",
 			"Adicionar feedback",
 			"Remover feedback",
 			"Editar feedback",
 			"Sair\n"
 		};
-		final List<String> optionsList = Arrays.asList(options);
+		final List<String> OPTIONS_LIST = Arrays.asList(OPTIONS);
 		
-		final String[] categories = { "Reclamacao", "Elogio", "Ideia" };
-		final List<String> categoriesList = Arrays.asList(categories);
+		final String[] CATEGORIES = { "Reclamacao", "Elogio", "Ideia" };
+		final List<String> CATEGORIES_LIST = Arrays.asList(CATEGORIES);
 		
 		boolean running = true;
 		
@@ -42,7 +42,7 @@ public class Main {
 		
 		while (running) {
 			formatter.line(100);
-			formatter.menu("Selecione uma opcao:", optionsList);
+			formatter.menu("Selecione uma opcao:", OPTIONS_LIST);
 			formatter.line(100);
 
 			int option = validator.readInt("\nOpcao: ");
@@ -50,109 +50,88 @@ public class Main {
 			if (option == 1) {
 				fb.getFeedbacks("All");
 			} else if (option == 2) {
-				formatter.menu("Categorias:", categoriesList);
+				formatter.menu("Categorias:", CATEGORIES_LIST);
 
 				int optionToAdd = validator.readInt("\nQual a categoria do feedback deseja adicionar? (1 / 2 / 3): ");
-				
+
 				switch (optionToAdd) {
-					case 1:
+					case 1 -> {
 						feedback = validator.readString("\nDigite sua reclamacao:\n");
-						
 						fb.setType("Reclamacao");
 						fb.setFeedback(feedback);
 						fb.sendFeedback();
-						break;
-					case 2:
+					}
+					case 2 -> {
 						feedback = validator.readString("\nDigite seu elogio:\n");
-						
 						fb.setType("Elogio");
 						fb.setFeedback(feedback);
 						fb.sendFeedback();
-						break;
-					case 3:
+					}
+					case 3 -> {
 						feedback = validator.readString("\nDigite sua ideia:\n");
-						
 						fb.setType("Ideia");
 						fb.setFeedback(feedback);
 						fb.sendFeedback();
-						break;
-					default:
-						formatter.errorEmitter("Categoria invalida!");
-						break;
+					}
+					default -> formatter.errorEmitter("Categoria invalida!");
 				}
 			} else if (option == 3) {
-				formatter.menu("Categorias:", categoriesList);
+				formatter.menu("Categorias:", CATEGORIES_LIST);
 
 				int optionToRemove = validator.readInt("\nQual a categoria do feedback deseja remover? (1 / 2 / 3): ");
-				
+
 				switch (optionToRemove) {
-					case 1:
+					case 1 -> {
 						System.out.println("\nQual reclamacao deseja remover?\n");
 						fb.getFeedbacks("Reclamacao");
-	
 						int claimId = validator.readInt("\nNumero da reclamacao: ");
-	
 						fb.setType("Reclamacao");
 						fb.deleteFeedback(claimId);
-						break;
-					case 2:
+					}
+					case 2 -> {
 						System.out.println("\nQual elogio deseja remover?\n");
 						fb.getFeedbacks("Elogio");
-
 						int complimentId = validator.readInt("\nNumero do elogio: ");
-
 						fb.setType("Elogio");
 						fb.deleteFeedback(complimentId);
-						break;
-					case 3:
+					}
+					case 3 -> {
 						System.out.println("\nQual ideia deseja remover?\n");
 						fb.getFeedbacks("Ideia");
-
 						int ideaId = validator.readInt("\nNumero da ideia: ");
-
 						fb.setType("Ideia");
 						fb.deleteFeedback(ideaId);
-						break;
-					default:
-						formatter.errorEmitter("Categoria invalida!");
-						break;
+					}
+					default -> formatter.errorEmitter("Categoria invalida!");
 				}
 			} else if (option == 4) {
-				formatter.menu("Categorias:", categoriesList);
+				formatter.menu("Categorias:", CATEGORIES_LIST);
 
 				int optionToEdit = validator.readInt("\nQual a categoria do feedback deseja editar? (1 / 2 / 3): ");
-				
+
 				switch (optionToEdit) {
-					case 1:
+					case 1 -> {
 						System.out.println("\nQual reclamacao deseja editar?\n");
 						fb.getFeedbacks("Reclamacao");
-
 						int claimId = validator.readInt("\nNumero da reclamacao: ");
-
 						fb.setType("Reclamacao");
 						fb.editFeedback(claimId);
-						break;
-					case 2:
+					}
+					case 2 -> {
 						System.out.println("\nQual elogio deseja editar?\n");
 						fb.getFeedbacks("Elogio");
-
 						int compId = validator.readInt("\nNumero do elogio: ");
-
 						fb.setType("Elogio");
 						fb.editFeedback(compId);
-						break;
-					case 3:
+					}
+					case 3 -> {
 						System.out.println("\nQual ideia deseja editar?\n");
 						fb.getFeedbacks("Ideia");
-
 						int ideaId = validator.readInt("\nNumero da ideia: ");
-
 						fb.setType("Ideia");
 						fb.editFeedback(ideaId);
-						break;
-					default:
-						formatter.errorEmitter("Categoria invalida!");
-						break;
+					}
+					default -> formatter.errorEmitter("Categoria invalida!");
 				}
 			} else if (option == 5) {
 				formatter.header("Obrigado por utilizar o Sistema de Ouvidoria da Unifacisa!", 100);

@@ -51,55 +51,63 @@ public class Feedback {
 		this.feedback = feedback;
 	}
 
+	/**
+	 * @apiNote Recuperar feedbacks do banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param type Tipo do feedback
+	 */
 	public void getFeedbacks(String type) {
 		switch (type) {
-			case "Reclamacao":
-				claims.getClaims();
-				break;
-			case "Elogio":
-				compliments.getCompliments();
-				break;
-			case "Ideia":
-				ideas.getIdeas();
-				break;
-			case "All":
+			case "Reclamacao" -> claims.getClaims();
+			case "Elogio" -> compliments.getCompliments();
+			case "Ideia" -> ideas.getIdeas();
+			case "All" -> {
 				claims.getClaims();
 				compliments.getCompliments();
 				ideas.getIdeas();
-				break;
+			}
 		}
 	}
 
+	/**
+	 * @apiNote Enviar feedback
+	 *
+	 * @author Darllinson Azevedo
+	 */
 	public void sendFeedback() {
 		FeedbackDAO fbDAO = new FeedbackDAO();
 		fbDAO.addFeedback(this.type, this.author, this.feedback);
 	}
 
+	/**
+	 * @apiNote Excluir feedback
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do feedback
+	 */
 	public void deleteFeedback(int id) {
 		switch (this.type) {
-			case "Reclamacao":
-				claims.deleteClaim(id);
-				break;
-			case "Elogio":
-				compliments.deleteCompliment(id);
-				break;
-			case "Ideia":
-				ideas.deleteIdea(id);
-				break;
+			case "Reclamacao" -> claims.deleteClaim(id);
+			case "Elogio" -> compliments.deleteCompliment(id);
+			case "Ideia" -> ideas.deleteIdea(id);
 		}
 	}
 
+	/**
+	 * @apiNote Editar feedback
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do feedback
+	 */
 	public void editFeedback(int id) {
 		switch (this.type) {
-			case "Reclamacao":
-				claims.setClaim(id);
-				break;
-			case "Elogio":
-				compliments.setCompliment(id);
-				break;
-			case "Ideia":
-				ideas.setIdea(id);
-				break;
+			case "Reclamacao" -> claims.setClaim(id);
+			case "Elogio" -> compliments.setCompliment(id);
+			case "Ideia" -> ideas.setIdea(id);
 		}
 	}
 }

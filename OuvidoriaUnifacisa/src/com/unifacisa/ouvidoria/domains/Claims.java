@@ -18,6 +18,11 @@ public class Claims {
 	public Claims() {
 	}
 
+	/**
+	 * @apiNote Recuperar reclamações do banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 */
 	public void getClaims() {
 		this.claims = new ArrayList<String>();
 		this.idsOfClaims = new ArrayList<Integer>();
@@ -49,6 +54,13 @@ public class Claims {
 		}
 	}
 
+	/**
+	 * @apiNote Excluir uma reclamação no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id da reclamação
+	 */
 	public void deleteClaim(int id) {
 		if (id == 0 || id > this.claims.size()) {
 			formatter.errorEmitter("Reclamacao nao encontrada!");
@@ -60,6 +72,13 @@ public class Claims {
 		}
 	}
 
+	/**
+	 * @apiNote Editar uma reclamação no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id da reclamação
+	 */
 	public void setClaim(int id) {
 		if (id == 0 || id > this.claims.size()) {
 			formatter.errorEmitter("Reclamacao nao encontrada!");

@@ -18,13 +18,11 @@ Para rodar a aplicação, clone o repositório com:
 $ git clone https://github.com/darllinsonazvd/unifacisa-poo.git
 ```
 
-Abra o projeto na sua iDE de preferência (Eclipse é o recomendado)
+Abra o projeto na sua IDE de preferência (IntelliJ Idea é a recomendada)
 
-Se estiver usando o Eclipse, clique com o botão direito na pasta do projeto, navegue até a opção de "Build Path" e clique em "Add external archives..."
+Se estiver usando o IntelliJ Idea, clique em `File -> Project Structure -> Libraries -> Add from Maven`, na janela que abrir pesquise por `com.mysql:mysql-connector-j:8.0.32` (ou a versão do mysql que você esteja utilizando)
 
-Logo após, navegue até a pasta onde o seu MySQL está instalado, abra a pasta Connector J (se não estiver disponível, faça a instalação através [clicando aqui](https://dev.mysql.com/downloads/connector/j/)) e selecione o arquivo com final _.jar_ .
-
-No MySQL Workbench crie uma nova conexão com o user _root_ e o password _root_, depois, crie as tabelas com os seguintes comandos:
+No MySQL Workbench crie uma nova conexão com o user _root_ e o password _password_, depois, crie as tabelas com os seguintes comandos:
 
 ```sql
 CREATE DATABASE db_ouvidoria;
@@ -43,5 +41,6 @@ Depois é só rodar o arquivo _Main.java_ .
 
 ## Tecnologias 🚀
 
+- IntelliJ Idea
 - Java
 - MySQL

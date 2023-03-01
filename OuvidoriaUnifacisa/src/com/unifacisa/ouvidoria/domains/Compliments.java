@@ -18,6 +18,11 @@ public class Compliments {
 	public Compliments() {
 	}
 
+	/**
+	 * @apiNote Recuperar elogios do banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 */
 	public void getCompliments() {
 		this.compliments = new ArrayList<String>();
 		this.idsOfCompliments = new ArrayList<Integer>();
@@ -49,11 +54,13 @@ public class Compliments {
 		}
 	}
 
-	public void addCompliment(String compliment) {
-		this.compliments.add(compliment);
-		formatter.successEmitter("Elogio adicionado com sucesso!");
-	}
-
+	/**
+	 * @apiNote Excluir um elogio no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do elogio
+	 */
 	public void deleteCompliment(int id) {
 		if (id == 0 || id > this.compliments.size()) {
 			formatter.errorEmitter("Elogio nao encontrado!");
@@ -65,6 +72,13 @@ public class Compliments {
 		}
 	}
 
+	/**
+	 * @apiNote Editar um elogio no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do elogio
+	 */
 	public void setCompliment(int id) {
 		if (id == 0 || id > this.compliments.size()) {
 			formatter.errorEmitter("Elogio nao encontrado!");

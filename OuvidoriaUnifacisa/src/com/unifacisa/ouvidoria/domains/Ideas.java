@@ -18,6 +18,11 @@ public class Ideas {
 	public Ideas() {
 	}
 
+	/**
+	 * @apiNote Recuperar ideias do banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 */
 	public void getIdeas() {
 		this.ideas = new ArrayList<String>();
 		this.idsOfIdeas = new ArrayList<Integer>();
@@ -49,11 +54,13 @@ public class Ideas {
 		}
 	}
 
-	public void addIdea(String idea) {
-		this.ideas.add(idea);
-		formatter.successEmitter("Ideia adicionada com sucesso!");
-	}
-
+	/**
+	 * @apiNote Excluir uma ideia no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do elogio
+	 */
 	public void deleteIdea(int id) {
 		if (id == 0 || id > this.ideas.size()) {
 			formatter.errorEmitter("Ideia nao encontrada!");
@@ -65,6 +72,13 @@ public class Ideas {
 		}
 	}
 
+	/**
+	 * @apiNote Editar uma ideia no banco de dados
+	 *
+	 * @author Darllinson Azevedo
+	 *
+	 * @param id Id do elogio
+	 */
 	public void setIdea(int id) {
 		if (id == 0 || id > this.ideas.size()) {
 			formatter.errorEmitter("Ideia nao encontrada!");
